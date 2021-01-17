@@ -1,0 +1,49 @@
+# <#noparse>
+# This configuration file supports freemarker templates as follows:
+# ${PORT!8080}
+# -> Uses the value of the PORT environment variable. If the variable is not set, 8080 is used as default.
+# </#noparse> (-> tells freemarker to ignore all freemarker expression in the comment above)
+
+#------------------------------------------------------------
+# General Server Configuration 
+#------------------------------------------------------------
+
+server:
+  # JAX-RS resources are served from "/api/*"
+  rootPath: /api/*
+  applicationConnectors:
+    - type: http
+      port: ${PORT!8090}
+  adminConnectors:
+    - type: http
+      port: ${ADMINPORT!8082}
+
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  loggers:
+    de.ustutt.iaas.cc: DEBUG
+    # shows error messages when JSON parsing fails
+    #io.dropwizard.jersey.jackson: DEBUG
+  appenders:
+    # write log to console
+    - type: console
+    # write log to file
+    - type: file
+      threshold: DEBUG
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: /tmp/application.log
+      archivedLogFilenamePattern: /tmp/application-%d{yyyy-MM-dd}.log
+      archivedFileCount: 7
+      timeZone: UTC
+
+# swagger configuration
+swagger:
+  resourcePackage: de.ustutt.iaas.cc.resources
+
+#------------------------------------------------------------
+# Notebook App Configuration 
+#------------------------------------------------------------
+
+# sets the ID of this service instance, optional
+#serviceInstanceID: service 1
