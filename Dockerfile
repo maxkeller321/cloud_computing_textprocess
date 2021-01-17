@@ -17,6 +17,8 @@ RUN export JAVA_HOME
 
 RUN apt-get install -y iputils-ping
 
+RUN apt -y install maven
+
 ADD textprocessor-service-0.2.0 /textprocessor-service-0.2.0
 
 WORKDIR "/textprocessor-service-0.2.0"
