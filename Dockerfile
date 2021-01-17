@@ -21,4 +21,6 @@ ADD textprocessor-service-0.2.0 /textprocessor-service-0.2.0
 
 WORKDIR "/textprocessor-service-0.2.0"
 
+RUN mvn clean install
+
 CMD java -jar target/SimpleTextProcessor-0.2.0.jar server config.yml
